@@ -2,6 +2,7 @@ package SlotMachine.handlers;
 
 import SlotMachine.config.SlotMachineConfig;
 import SlotMachine.models.SlotMachineModel;
+import SlotMachine.providers.ModelEngineProvider;
 import SlotMachine.utils.ItemCreator;
 import SlotMachine.utils.ProbabilityCalculator;
 import items.EconomyItems;
@@ -29,6 +30,7 @@ public class SlotMachineHandler {
     private final SlotMachineConfig config;
     private final ItemCreator itemCreator;
     private final ProbabilityCalculator probabilityCalculator;
+    private final ModelEngineProvider modelEngineProvider;
     
     // Mapas para gestionar las máquinas activas
     private final Map<Location, SlotMachineModel> activeMachines = new ConcurrentHashMap<>();
@@ -40,6 +42,7 @@ public class SlotMachineHandler {
         this.config = config;
         this.itemCreator = new ItemCreator(plugin);
         this.probabilityCalculator = new ProbabilityCalculator(config);
+        this.modelEngineProvider = ModelEngineProvider.createProvider(plugin);
     }
     
     /**
@@ -68,13 +71,16 @@ public class SlotMachineHandler {
         entity.setMetadata("slot_machine", new FixedMetadataValue(plugin, config.getModelId()));
         entity.setMetadata("slot_machine_id", new FixedMetadataValue(plugin, location.toString()));
         
+        // Crear modelo 3D usando ModelEngine
+        boolean modelCreated = modelEngineProvider.createModel(entity, config.getModelId());
+        if (!modelCreated) {
+            plugin.getLogger().warning("Failed to create 3D model for slot machine");
+        }
+        
         // Crear el modelo de datos
         SlotMachineModel machine = new SlotMachineModel(location, config.getModelId());
         machine.setEntity(entity);
         activeMachines.put(location, machine);
-        
-        // ModelEngine detectará automáticamente la entidad y aplicará el modelo
-        // basado en el metadata "slot_machine" con valor "casinod3"
         
         // Efectos visuales y sonoros
         spawnCreationEffects(location);
@@ -154,8 +160,11 @@ public class SlotMachineHandler {
         // Iniciar animación
         startSpinAnimation(location, player, result);
         
-        // ModelEngine manejará las animaciones automáticamente
-        plugin.getLogger().info("Ejecutando spin con animación: " + result.getAnimation());
+        // Reproducir animación usando ModelEngine
+        SlotMachineModel machine = activeMachines.get(location);
+        if (machine != null && machine.getEntity() != null) {
+            modelEngineProvider.playAnimation(machine.getEntity(), result.getAnimation());
+        }
         
         // Sonidos de inicio
         playSound(location, config.getBetSound());
@@ -204,6 +213,11 @@ public class SlotMachineHandler {
         
         machine.setSpinning(false);
         activeAnimations.remove(location);
+        
+        // Volver a animación idle
+        if (machine.getEntity() != null) {
+            modelEngineProvider.playAnimation(machine.getEntity(), config.getIdleAnimation());
+        }
         
         // Efectos de finalización
         spawnFinishEffects(location, result.hasReward());
@@ -277,6 +291,7 @@ public class SlotMachineHandler {
         
         // Remover entidad
         if (machine.getEntity() != null) {
+            modelEngineProvider.removeModel(machine.getEntity());
             machine.getEntity().remove();
         }
         

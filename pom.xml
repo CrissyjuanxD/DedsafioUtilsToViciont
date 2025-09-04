@@ -29,6 +29,14 @@
 +        </repository>
      </repositories>
 
+        <!-- ModelEngine API -->
+        <dependency>
+            <groupId>com.github.Ticxo.ModelEngine</groupId>
+            <artifactId>api</artifactId>
+            <version>R4.0.6</version>
+            <scope>provided</scope>
+        </dependency>
+
 @@ .. @@
             </exclusions>
         </dependency>
