@@ -1,19 +1,20 @@
 package SlotMachine.models;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.ArmorStand;
 
 import java.util.UUID;
 
 /**
  * Modelo de datos para una Slot Machine
- * Basado en la lógica de DedsafioUtils pero adaptado
+ * Basado en entidades como DedsafioUtils
  */
 public class SlotMachineModel {
     
     private final Location location;
     private final String modelId;
+    private ArmorStand entity;
     private UUID currentUser;
     private boolean isSpinning;
     private String currentAnimation;
@@ -30,6 +31,9 @@ public class SlotMachineModel {
     // Getters y Setters
     public Location getLocation() { return location; }
     public String getModelId() { return modelId; }
+    
+    public ArmorStand getEntity() { return entity; }
+    public void setEntity(ArmorStand entity) { this.entity = entity; }
     
     public UUID getCurrentUser() { return currentUser; }
     public void setCurrentUser(UUID currentUser) { this.currentUser = currentUser; }

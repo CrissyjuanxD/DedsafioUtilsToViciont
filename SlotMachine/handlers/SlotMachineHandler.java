@@ -7,9 +7,12 @@ import SlotMachine.utils.ProbabilityCalculator;
 import items.EconomyItems;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -40,7 +43,7 @@ public class SlotMachineHandler {
     }
     
     /**
-     * Crea una nueva slot machine en la ubicación especificada
+     * Crea una nueva slot machine usando entidad (como DedsafioUtils)
      */
     public boolean createSlotMachine(Location location, Player creator) {
         if (activeMachines.containsKey(location)) {
@@ -48,36 +51,41 @@ public class SlotMachineHandler {
             return false;
         }
         
-        // Colocar el bloque de la máquina
-        location.getBlock().setType(Material.ORANGE_GLAZED_TERRACOTTA);
+        // Crear entidad ArmorStand invisible para el modelo
+        ArmorStand entity = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+        entity.setVisible(false);
+        entity.setGravity(false);
+        entity.setInvulnerable(true);
+        entity.setCanPickupItems(false);
+        entity.setCustomName("SlotMachine");
+        entity.setCustomNameVisible(false);
+        entity.setSmall(false);
+        entity.setArms(false);
+        entity.setBasePlate(false);
+        entity.setMarker(true);
         
-        // Crear el modelo 3D con ModelEngine
+        // Metadata para identificar como slot machine
+        entity.setMetadata("slot_machine", new FixedMetadataValue(plugin, config.getModelId()));
+        entity.setMetadata("slot_machine_id", new FixedMetadataValue(plugin, location.toString()));
+        
+        // Crear el modelo de datos
         SlotMachineModel machine = new SlotMachineModel(location, config.getModelId());
+        machine.setEntity(entity);
         activeMachines.put(location, machine);
         
-        // Spawnar efectos básicos (ModelEngine manejará el modelo automáticamente)
-        spawnBasicEffects(location);
+        // ModelEngine detectará automáticamente la entidad y aplicará el modelo
+        // basado en el metadata "slot_machine" con valor "casinod3"
         
         // Efectos visuales y sonoros
         spawnCreationEffects(location);
         
         creator.sendMessage(ChatColor.of("#B5EAD7") + "۞ Slot Machine creada exitosamente!");
         plugin.getLogger().info("Slot Machine created at " + locationToString(location) + " by " + creator.getName());
+        plugin.getLogger().info("Entity UUID: " + entity.getUniqueId() + " with model: " + config.getModelId());
         
         return true;
     }
     
-    /**
-     * Efectos básicos si ModelEngine no está disponible
-     */
-    private void spawnBasicEffects(Location location) {
-        World world = location.getWorld();
-        Location effectLoc = location.clone().add(0.5, 1, 0.5);
-        
-        // Partículas básicas para simular la máquina
-        world.spawnParticle(Particle.ELECTRIC_SPARK, effectLoc, 5, 0.3, 0.3, 0.3, 0.05);
-        world.spawnParticle(Particle.ENCHANT, effectLoc, 3, 0.2, 0.2, 0.2, 0.1);
-    }
     
     /**
      * Inicia el uso de una slot machine
