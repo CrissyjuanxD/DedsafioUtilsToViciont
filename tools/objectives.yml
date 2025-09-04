@@ -1,0 +1,58 @@
+enabled: true
+config:
+  max-ticks: 0
+  fade-in: 0
+  stay: 5
+  fade-out: 0
+  message-type: "CHAT"
+objectives:
+  kill_1k_mobs:
+    name: '&eMatar 1000 mobs'
+    time-duration: 600
+    goal: 1000
+    wait-to-hide: 5
+    type: 'KILL_MOBS'
+    data: 'ALL'
+    resume:
+      title: '&4Momento Reviil'
+      icon: ':little-roulette:'
+      messages:
+        - 'Entre todos los Jugadores deben matar'
+        - '&a%current%&r/&6%goal% &rentidades en menos de 10 minutos.'
+        - 'Si no lo logran, las personas en la tabla'
+        - 'serán sometidas a un castigo de la muerte.'
+      sound: 'dtools3:tools.events.reviil'
+    pause:
+        title: '&4Momento Reviil'
+        icon: ':little-roulette:'
+        messages:
+            - 'El objetivo ha sido pausado.'
+            - 'Las personas en la tabla no serán'
+            - 'sometidas a un castigo de la muerte hasta'
+            - 'que continue el contador.'
+        sound: 'dtools3:tools.events.reviil'
+    end:
+      title: '&4Momento Reviil'
+      icon: ':little-roulette:'
+      messages:
+        - 'El objetivo ha terminado forzadamente.'
+        - 'Reviil está pensando que hacer con ustedes'
+        - 'asi que no se relajen aún.'
+      sound: 'dtools3:tools.events.reviil'
+    win:
+      title: '&4Momento Reviil'
+      icon: ':little-roulette:'
+      color: '#84ff8f'
+      messages:
+        - 'Yo siempre vuelvo...'
+    loss:
+      title: '&4Momento Reviil'
+      icon: ':little-roulette:'
+      color: '#ff8484'
+      messages:
+        - 'Preparense para su castigo...'
+        - 'Las personas en la tabla serán sometidas'
+        - 'a un castigo de la muerte.'
+    sidebar:
+      type: 0 # 0 = WORST_PLAYERS, 1 = BEST_PLAYERS
+      hide-automatically: true

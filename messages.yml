@@ -1,0 +1,50 @@
+prefix: "#47acca[DTools3] "
+reload: "#47ca59¡La configuración se ha recargado con éxito!"
+no-permission: "#ca4747No tienes permiso para hacer esto!"
+player-not-found: "#ca4747Jugador no encontrado!"
+tool-executor-not-found: "#ca4747Tool executor no encontrado!"
+option-not-found: "#ca4747Tool Executor Option no encontrado!"
+tool-not-found: "#ca4747Tool no encontrado!"
+campfire:
+  corn1: "#47ca59Punto 1 de la fogata %campfire% ha sido establecido!"
+  corn2: "#47ca59Punto 2 de la fogata %campfire% ha sido establecido!"
+  respawn: "#47ca59El respawn de la fogata %campfire% ha sido establecido!"
+  spawn: "#47ca59El spawn de la fogata %campfire% ha sido establecido!"
+  save: "#47ca59Los datos de la fogata %campfire% han sido guardados!"
+usages:
+  play: "#47ca59Uso: /dtools3 play <tool> [player] [unknown]"
+  revive: "#47ca59Uso: /dtools3 revive <player>"
+  tp: "#47ca59Uso: /dtools3 tp <player> <location/player/*/all/back>"
+  slot_machine: "#47ca59Uso: /dtools3 slot_machine <slot_machine_id>"
+  give: "#47ca59Uso: /dtools3 give <item_id> <player> <amount/64>"
+  roulette: "#47ca59Uso: /dtools3 roulette <roulette_id> <player> <tool_executor_option/message>"
+  states: "#47ca59Uso: /dtools3 states <state_id>"
+  objective: "#47ca59Uso: /dtools3 objective <objective_id> <resume/pause/end>"
+  reload: "#47ca59Uso: /dtools3 reload"
+  help: "#47ca59Uso: /dtools3 help"
+  unknown: "#ca4747Comando desconocido!"
+souls:
+  without: "#ca4747No puedes revivir a nadie porque no tienes alma."
+  show:
+    not-enough: "#ca4747No tienes alma."
+    has: "#47ca59Tienes alma."
+  others-show:
+    not-enough: "#ca4747%owner% No tiene alma."
+    has: "#47ca59%owner% tiene alma."
+  revive-player: "#47ca59Has revivido a %player%!"
+  revive-player-with-soul: "#47ca59Has revivido a %player% a cambio de tu alma!"
+lives:
+  show:
+    not-enough: "#ca4747No tienes vidas."
+    has: "#47ca59Tienes %lives% vidas."
+  others-show:
+    not-enough: "#ca4747%owner% No tiene vidas."
+    has: "#47ca59%owner% tiene %lives% vidas."
+states:
+  show: "#e3e347Estado: #47ca59%state_id% &7| &f%state_active%"
+objectives:
+  active: "#47ca59El objetivo %objective_id% ha sido activado!"
+  resume: "#47ca59El objetivo %objective_id% ha sido reactivado!"
+  pause: "#47ca59El objetivo %objective_id% ha sido pausado!"
+  end: "#47ca59El objetivo %objective_id% ha sido finalizado!"
+  not-found: "#ca4747Objetivo no encontrado!"

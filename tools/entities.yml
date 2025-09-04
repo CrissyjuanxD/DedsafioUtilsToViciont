@@ -1,0 +1,19 @@
+entities:
+  red_phantom:
+    display_name: "&cFantasma Rojo"
+    health: 100.0
+    damage: 10.0
+    entity_type: VEX
+    action_type: PHANTOM
+    item_take_damage: 'espada_fantasmal'
+  flying_bomb:
+    display_name: "&cBomba Voladora"
+    health: 100.0
+    damage: 10.0
+    speed: 1.0
+    data:
+      explosion_radius: 5.0
+      explosion_power: 3.0
+      explosion_fire: true
+    entity_type: VEX
+    action_type: FLYING_BOMB

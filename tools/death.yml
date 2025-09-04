@@ -1,0 +1,38 @@
+enabled: true
+config:
+  max-ticks: 0
+  fade-in: 0
+  stay: 5
+  fade-out: 0
+  message-type: "TITLE"
+  sound: "dtools3:tools.death"
+deaths:
+  default:
+    name: '&cDeath'
+    message-broadcast: true
+    messages:
+      - '#ab2e2e%owner% ha muerto.'
+    start-frame: '\uE000'
+    end-frame: '\uE05B'
+    death-type: 'ALL'
+    game-mode: 'SPECTATOR'
+    line-message: 1
+    tool-executor:
+      id: 'player'
+      option: 'loss_final_life'
+  totem:
+    name: '&cTotem Death'
+    message-broadcast: true
+    messages:
+      - '#d8d536⚙ &l%owner% &r#d8d536ha consumido un tótem!'
+    death-type: 'TOTEM'
+    game-mode: 'SURVIVAL'
+    line-message: 1
+  totem_reviil:
+    name: '&cTotem Reviil Death'
+    message-broadcast: true
+    messages:
+      - '#d8d536⚙ &l%owner% &r#d8d536ha consumido un tótem Reviil!'
+    death-type: 'TOTEM_totem_reviil'
+    game-mode: 'SURVIVAL'
+    line-message: 1

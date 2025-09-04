@@ -1,0 +1,22 @@
+enabled: true
+config:
+  max-ticks: 0
+  fade-in: 0
+  stay: 5
+  fade-out: 0
+  message-type: "TITLE"
+crafts:
+  ender_bag:
+    name: "&eEnder Bag Craft"
+    result: "ender_bag"
+    template:
+      - "AIR, healing_infernal_sword, AIR"
+      - "AIR, GOLDEN_APPLE, AIR"
+      - "AIR, AIR, ENDER_EYE"
+  cuchara_de_resurreccion:
+    name: "&eCuchara de Resurrección"
+    result: "cuchara_de_resurreccion"
+    template:
+      - "AIR, PLAYER_HEAD;0, AIR"
+      - "DIAMOND, cuchara;1;2, DIAMOND"
+      - "NETHER_STAR, BLAZE_ROD, NETHER_STAR"

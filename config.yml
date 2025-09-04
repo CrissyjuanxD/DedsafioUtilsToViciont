@@ -1,0 +1,13 @@
+mod-features: true
+mod-features-options:
+  mission-menu: false
+  sidebar: true
+  info_sidebar: true
+database:
+  type: sqlite
+  host: "127.0.0.1"
+  port: 3306
+  user: "root"
+  password: "password"
+  database: "dtools_database"
+  table: "players"

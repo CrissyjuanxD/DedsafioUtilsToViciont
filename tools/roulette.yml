@@ -1,0 +1,96 @@
+enabled: true
+config:
+  max-ticks: 0
+  fade-in: 0
+  stay: 5
+  fade-out: 0
+  message-type: "TITLE"
+  sound: "dtools3:tools.roulette"
+roulette:
+  amarillo:
+    name: '&eRuleta amarilla'
+    messages:
+      - ':little-roulette-yellow:&e&l▪ ᴅᴇᴅᴄɪᴄʟᴏᴘᴇᴅɪᴀ:'
+      - ''
+      - '#f4e881                                                           '
+      - '#f4e881                                                           '
+    start-frame: '\uE05C'
+    end-frame: '\uE17B'
+    probability: '50%'
+    color: '#f4e881'
+  azul:
+    name: '&eRuleta azul'
+    start-frame: '\uE17C'
+    end-frame: '\uE29F'
+    probability: '50%'
+    color: '#81aef4'
+  morado:
+    name: '&eRuleta morada'
+    start-frame: '\uE2A0'
+    end-frame: '\uE3C5'
+    probability: '50%'
+    color: '#b981f4'
+  naranja:
+    name: '&eRuleta naranja'
+    messages:
+      - ':little-roulette-orange:&6&l Cambio de dificultad:'
+      - ''
+      - '#f4b581A partir de ahora, el fuego no se apagará con el tiempo; la'
+      - '#f4b581 única forma de extinguirlo será con agua.'
+    start-frame: '\uE3C6'
+    end-frame: '\uE4E4'
+    probability: '50%'
+    color: '#f4b581'
+  rojo:
+    name: '&eRuleta roja'
+    start-frame: '\uE4E5'
+    end-frame: '\uE60B'
+    probability: '10%'
+    color: '#f48181'
+    tool-executor:
+      id: 'events'
+      option: 'reviil_1k_entidades'
+  rojo_sin_texto:
+    name: '&eRuleta roja'
+    start-frame: '\uE4E5'
+    end-frame: '\uE60B'
+    probability: '10%'
+    color: '#f48181'
+    tool-executor:
+      id: 'events'
+      option: 'reviil_sin_texto'
+  rosado:
+    name: '&eRuleta rosada'
+    start-frame: '\uE60C'
+    end-frame: '\uE731'
+    probability: '15%'
+    color: '#f481e4'
+    tool-executor:
+      id: 'events'
+      option: 'nutria_especial'
+  rosado_sin_texto:
+    name: '&eRuleta rosada'
+    start-frame: '\uE60C'
+    end-frame: '\uE731'
+    probability: '15%'
+    color: '#f481e4'
+    tool-executor:
+      id: 'events'
+      option: 'nutria_sin_texto'
+  cian:
+    name: '&eRuleta Cian'
+    messages:
+      - ':little-roulette-cyan:&b&l► ᴍɪѕɪóɴ:'
+      - ''
+      - '#81f4eb                                                           '
+      - '#81f4eb                                                           '
+    start-frame: '\uE732'
+    end-frame: '\uE850'
+    probability: '50%'
+    color: '#81f4eb'
+  verde:
+    name: '&eRuleta Verde'
+    start-frame: '\uE851'
+    end-frame: '\uE972'
+    probability: '50%'
+    color: '#81f484'

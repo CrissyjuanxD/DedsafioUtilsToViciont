@@ -1,0 +1,86 @@
+enabled: true
+config:
+  max-ticks: 0
+  fade-in: 0
+  stay: 5
+  fade-out: 0
+  message-type: "TITLE"
+player:
+  lives:
+    name: '&eLives'
+    type: 'LIVES'
+    data:
+      max-lives: 1
+  win_life:
+    name: '&eWin Life'
+    message-broadcast: true
+    messages:
+      - ''
+      - ':little-roulette: #4cc240%owner% Ha ganado una vida.'
+      - ''
+    type: 'WIN_LIFE'
+  loss_life:
+    name: '&eLoss Life'
+    message-broadcast: true
+    messages:
+      - ''
+      - ':little-roulette: #f48181%owner% Ha perdido una vida.'
+      - ''
+    type: 'LOSS_LIFE'
+  respawn_life:
+    name: '&eRespawn Life'
+    message-broadcast: true
+    type: 'RESPAWN_LIFE'
+    data:
+      wait: 1 #seconds
+      game-mode: 'SURVIVAL'
+  loss_final_life:
+    name: '&eLoss Final Life'
+    message-broadcast: true
+    messages:
+      - ''
+      - ':little-roulette: #f48181%owner% Ha perdido todas sus vidas.'
+      - ''
+    type: 'LOSS_FINAL_LIFE'
+    data:
+      wait-to-kick: 5 #seconds
+      kick-messages:
+        - '&cHas sido eliminado: &6GG.'
+        - ''
+  souls:
+    name: '&eSouls'
+    type: 'SOULS'
+  recover_soul:
+    name: '&eRecover Soul'
+    message-broadcast: true
+    messages:
+      - ''
+      - ':little-roulette: #4cc240%owner% Ha recuperado su alma.'
+      - ''
+    type: 'RECOVER_SOUL'
+  loss_soul:
+    name: '&eLoss Soul'
+    message-broadcast: true
+    messages:
+      - ''
+      - ':little-roulette: #f48181%owner% Ha perdido su alma.'
+      - ''
+    type: 'LOSS_SOUL'
+  loss_soul_revive:
+    name: '&eRevive Soul'
+    message-broadcast: true
+    messages:
+      - ''
+      - ':little-roulette: #f48181%owner% Ha perdido su alma a cambio de revivir a alguien.'
+      - ''
+    type: 'LOSS_SOUL_REVIVE'
+  revive:
+    name: '&eRevive'
+    message-broadcast: true
+    messages:
+      - ''
+      - ':little-roulette: #4cc240%owner% Ha sido revivido.'
+      - ''
+    type: 'REVIVE'
+    data:
+      wait-to-respawn: 2 #seconds

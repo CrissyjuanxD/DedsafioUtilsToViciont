@@ -1,0 +1,13 @@
+enabled: true
+config:
+  fade-in: 20
+  stay: 100
+  fade-out: 20
+  message-type: "TITLE"
+  sound: dtools3:tools.transitions.tp
+transitions:
+  default:
+    name: '&cTransition Default'
+    frame: ':transition-icon:'
+    override: false
+    transition-type: 'TELEPORT'
