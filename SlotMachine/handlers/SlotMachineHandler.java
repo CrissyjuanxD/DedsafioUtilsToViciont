@@ -4,6 +4,9 @@ import SlotMachine.config.SlotMachineConfig;
 import SlotMachine.models.SlotMachineModel;
 import SlotMachine.utils.ItemCreator;
 import SlotMachine.utils.ProbabilityCalculator;
+import com.ticxo.modelengine.api.ModelEngineAPI;
+import com.ticxo.modelengine.api.model.ActiveModel;
+import com.ticxo.modelengine.api.model.ModeledEntity;
 import items.EconomyItems;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
@@ -30,6 +33,7 @@ public class SlotMachineHandler {
     // Mapas para gestionar las máquinas activas
     private final Map<Location, SlotMachineModel> activeMachines = new ConcurrentHashMap<>();
     private final Map<UUID, Location> playerMachines = new ConcurrentHashMap<>();
+    private final Map<Location, ActiveModel> activeModels = new ConcurrentHashMap<>();
     private final Map<Location, BukkitRunnable> activeAnimations = new ConcurrentHashMap<>();
     
     public SlotMachineHandler(JavaPlugin plugin, SlotMachineConfig config) {
@@ -51,9 +55,12 @@ public class SlotMachineHandler {
         // Colocar el bloque de la máquina
         location.getBlock().setType(Material.ORANGE_GLAZED_TERRACOTTA);
         
-        // Crear el modelo de la máquina con modelo 3D del mod
+        // Crear el modelo 3D con ModelEngine
         SlotMachineModel machine = new SlotMachineModel(location, config.getModelId());
         activeMachines.put(location, machine);
+        
+        // Spawnar modelo 3D con ModelEngine
+        spawnModelEngineModel(location);
         
         // Efectos visuales y sonoros
         spawnCreationEffects(location);
@@ -62,6 +69,33 @@ public class SlotMachineHandler {
         plugin.getLogger().info("Slot Machine created at " + locationToString(location) + " by " + creator.getName());
         
         return true;
+    }
+    
+    /**
+     * Crea el modelo 3D usando ModelEngine
+     */
+    private void spawnModelEngineModel(Location location) {
+        try {
+            // Crear modelo usando ModelEngine API
+            ActiveModel model = ModelEngineAPI.createActiveModel(config.getModelId());
+            if (model != null) {
+                // Posicionar el modelo
+                Location modelLoc = location.clone().add(0.5, 0, 0.5);
+                ModeledEntity modeledEntity = ModelEngineAPI.createModeledEntity(modelLoc);
+                
+                if (modeledEntity != null) {
+                    modeledEntity.addModel(model, true);
+                    activeModels.put(location, model);
+                    
+                    // Iniciar animación idle
+                    model.getAnimationHandler().playAnimation(config.getIdleAnimation(), true);
+                    
+                    plugin.getLogger().info("Modelo 3D creado: " + config.getModelId() + " en " + locationToString(location));
+                }
+            }
+        } catch (Exception e) {
+            plugin.getLogger().warning("Error creando modelo ModelEngine: " + e.getMessage());
+        }
     }
     
     /**
@@ -131,8 +165,25 @@ public class SlotMachineHandler {
         // Iniciar animación
         startSpinAnimation(location, player, result);
         
+        // Reproducir animación en el modelo 3D
+        playModelAnimation(location, "spin");
+        
         // Sonidos de inicio
         playSound(location, config.getBetSound());
+    }
+    
+    /**
+     * Reproduce una animación en el modelo 3D
+     */
+    private void playModelAnimation(Location location, String animationName) {
+        ActiveModel model = activeModels.get(location);
+        if (model != null) {
+            try {
+                model.getAnimationHandler().playAnimation(animationName, false);
+            } catch (Exception e) {
+                plugin.getLogger().warning("Error reproduciendo animación: " + animationName);
+            }
+        }
     }
     
     /**
@@ -181,6 +232,9 @@ public class SlotMachineHandler {
         
         // Efectos de finalización
         spawnFinishEffects(location, result.hasReward());
+        
+        // Reproducir animación de resultado en el modelo
+        playModelAnimation(location, result.getAnimation());
         
         if (result.hasReward()) {
             // Dar recompensa
@@ -239,6 +293,19 @@ public class SlotMachineHandler {
         BukkitRunnable animation = activeAnimations.remove(location);
         if (animation != null) {
             animation.cancel();
+        }
+        
+        // Limpiar modelo 3D
+        ActiveModel model = activeModels.remove(location);
+        if (model != null) {
+            try {
+                ModeledEntity modeledEntity = model.getModeledEntity();
+                if (modeledEntity != null) {
+                    modeledEntity.destroy();
+                }
+            } catch (Exception e) {
+                plugin.getLogger().warning("Error limpiando modelo ModelEngine: " + e.getMessage());
+            }
         }
         
         // Limpiar usuario si existe
@@ -397,6 +464,19 @@ public class SlotMachineHandler {
         // Limpiar mapas
         activeMachines.clear();
         playerMachines.clear();
+        
+        // Limpiar modelos 3D
+        for (ActiveModel model : activeModels.values()) {
+            try {
+                ModeledEntity modeledEntity = model.getModeledEntity();
+                if (modeledEntity != null) {
+                    modeledEntity.destroy();
+                }
+            } catch (Exception e) {
+                plugin.getLogger().warning("Error limpiando modelo en shutdown: " + e.getMessage());
+            }
+        }
+        activeModels.clear();
         
         plugin.getLogger().info("SlotMachineHandler shutdown completed.");
     }
