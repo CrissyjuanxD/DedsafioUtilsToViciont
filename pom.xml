@@ -3,6 +3,18 @@
             <id>papermc</id>
             <url>https://repo.papermc.io/repository/maven-public/</url>
         </repository>
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
+        </repository>
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <repository>
+            <id>dmulloy2-repo</id>
+            <url>https://repo.dmulloy2.net/repository/public/</url>
+        </repository>
 +        <repository>
 +            <id>ticxo-repo</id>
 +            <url>https://repo.ticxo.com/repository/maven-public/</url>
@@ -21,19 +33,11 @@
             </exclusions>
         </dependency>
 +        
-+        <!-- ModelEngine 4 -->
+        <!-- ModelEngine (usando JitPack como fallback) -->
 +        <dependency>
-+            <groupId>com.ticxo.modelengine</groupId>
-+            <artifactId>ModelEngine</artifactId>
-+            <version>4.0.7</version>
-+            <scope>provided</scope>
-+        </dependency>
-+        
-+        <!-- ModelEngine 3 (fallback) -->
-+        <dependency>
-+            <groupId>com.ticxo.modelengine</groupId>
-+            <artifactId>ModelEngine</artifactId>
-+            <version>3.1.7</version>
+            <groupId>com.github.Ticxo</groupId>
+            <artifactId>ModelEngine</artifactId>
+            <version>R4.0.0</version>
 +            <scope>provided</scope>
 +        </dependency>
 +        
@@ -41,7 +45,7 @@
 +        <dependency>
 +            <groupId>me.clip</groupId>
 +            <artifactId>placeholderapi</artifactId>
-+            <version>2.11.6</version>
+            <version>2.11.5</version>
 +            <scope>provided</scope>
 +        </dependency>
 +        
@@ -49,7 +53,7 @@
 +        <dependency>
 +            <groupId>com.comphenix.protocol</groupId>
 +            <artifactId>ProtocolLib</artifactId>
-+            <version>5.1.0</version>
+            <version>5.0.0</version>
 +            <scope>provided</scope>
 +        </dependency>
 +        
@@ -57,7 +61,7 @@
 +        <dependency>
 +            <groupId>de.tr7zw</groupId>
 +            <artifactId>item-nbt-api</artifactId>
-+            <version>2.12.4</version>
+            <version>2.12.0</version>
 +            <scope>provided</scope>
 +        </dependency>
      </dependencies>
