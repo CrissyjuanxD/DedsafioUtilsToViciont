@@ -275,9 +275,13 @@ public class SlotMachineHandler {
             playerMachines.remove(machine.getCurrentUser());
         }
         
+        // Remover entidad
+        if (machine.getEntity() != null) {
+            machine.getEntity().remove();
+        }
+        
         // Remover máquina
         activeMachines.remove(location);
-        location.getBlock().setType(Material.AIR);
         
         // Efectos de remoción
         spawnRemovalEffects(location);
@@ -292,17 +296,19 @@ public class SlotMachineHandler {
      * Crea el item de slot machine
      */
     public ItemStack createSlotMachineItem() {
-        ItemStack item = new ItemStack(Material.ORANGE_GLAZED_TERRACOTTA);
+        ItemStack item = new ItemStack(Material.ARMOR_STAND);
         ItemMeta meta = item.getItemMeta();
         
         meta.setDisplayName(ChatColor.of("#FFD3A5") + "" + ChatColor.BOLD + "Slot Machine");
         meta.setLore(Arrays.asList(
             "",
-            ChatColor.of("#C7CEEA") + "Coloca este bloque para crear",
+            ChatColor.of("#C7CEEA") + "Usa este item para crear",
             ChatColor.of("#C7CEEA") + "una máquina tragamonedas",
             "",
             ChatColor.of("#B5EAD7") + "• Requiere: " + ChatColor.of("#FFD3A5") + "Vithium Fichas",
             ChatColor.of("#B5EAD7") + "• Recompensas: " + ChatColor.of("#FFD3A5") + "Variadas",
+            "",
+            ChatColor.of("#FFB3BA") + "Click derecho para colocar",
             ""
         ));
         

@@ -13,7 +13,10 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import org.bukkit.Location;
 
 /**
  * Listener para eventos relacionados con las Slot Machines
@@ -101,6 +104,31 @@ public class SlotMachineListener implements Listener {
                 handler.removeSlotMachine(event.getBlock().getLocation(), event.getPlayer());
             } else {
                 event.getPlayer().sendMessage(ChatColor.of("#FF6B6B") + "۞ No puedes romper una Slot Machine. Usa Shift + Click para removerla.");
+            }
+        }
+    }
+    
+    @EventHandler
+    public void onPlayerUseSlotMachineItem(PlayerInteractEvent event) {
+        if (event.getAction() != Action.RIGHT_CLICK_BLOCK && event.getAction() != Action.RIGHT_CLICK_AIR) return;
+        
+        ItemStack item = event.getItem();
+        if (item == null || item.getType() != Material.ARMOR_STAND) return;
+        if (!item.hasItemMeta() || !item.getItemMeta().hasCustomModelData()) return;
+        if (item.getItemMeta().getCustomModelData() != 1000) return;
+        
+        event.setCancelled(true);
+        Player player = event.getPlayer();
+        
+        // Crear slot machine en la ubicación del jugador
+        Location spawnLocation = player.getLocation().clone();
+        spawnLocation.setY(spawnLocation.getY() + 1); // Un bloque arriba
+        
+        if (handler.createSlotMachine(spawnLocation, player)) {
+            // Consumir item
+            item.setAmount(item.getAmount() - 1);
+            if (item.getAmount() <= 0) {
+                player.getInventory().remove(item);
             }
         }
     }
