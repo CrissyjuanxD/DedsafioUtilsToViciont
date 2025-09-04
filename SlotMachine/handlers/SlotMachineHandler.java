@@ -7,6 +7,9 @@ import SlotMachine.utils.ProbabilityCalculator;
 import com.ticxo.modelengine.api.ModelEngineAPI;
 import com.ticxo.modelengine.api.model.ActiveModel;
 import com.ticxo.modelengine.api.model.ModeledEntity;
+import com.ticxo.modelengine.api.ModelEngineAPI;
+import com.ticxo.modelengine.api.model.ActiveModel;
+import com.ticxo.modelengine.api.model.ModeledEntity;
 import items.EconomyItems;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
@@ -76,6 +79,12 @@ public class SlotMachineHandler {
      */
     private void spawnModelEngineModel(Location location) {
         try {
+            // Verificar que ModelEngine esté disponible
+            if (!plugin.getServer().getPluginManager().isPluginEnabled("ModelEngine")) {
+                plugin.getLogger().warning("ModelEngine no está disponible. Usando efectos básicos.");
+                return;
+            }
+            
             // Crear modelo usando ModelEngine API
             ActiveModel model = ModelEngineAPI.createActiveModel(config.getModelId());
             if (model != null) {
@@ -95,7 +104,21 @@ public class SlotMachineHandler {
             }
         } catch (Exception e) {
             plugin.getLogger().warning("Error creando modelo ModelEngine: " + e.getMessage());
+            // Fallback a efectos básicos
+            spawnBasicEffects(location);
         }
+    }
+    
+    /**
+     * Efectos básicos si ModelEngine no está disponible
+     */
+    private void spawnBasicEffects(Location location) {
+        World world = location.getWorld();
+        Location effectLoc = location.clone().add(0.5, 1, 0.5);
+        
+        // Partículas básicas para simular la máquina
+        world.spawnParticle(Particle.ELECTRIC_SPARK, effectLoc, 5, 0.3, 0.3, 0.3, 0.05);
+        world.spawnParticle(Particle.ENCHANT, effectLoc, 3, 0.2, 0.2, 0.2, 0.1);
     }
     
     /**

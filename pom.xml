@@ -1,0 +1,63 @@
+@@ .. @@
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
++        <repository>
++            <id>ticxo-repo</id>
++            <url>https://repo.ticxo.com/repository/maven-public/</url>
++        </repository>
++        <repository>
++            <id>jitpack.io</id>
++            <url>https://jitpack.io</url>
++        </repository>
++        <repository>
++            <id>codemc-repo</id>
++            <url>https://repo.codemc.org/repository/maven-public/</url>
++        </repository>
+     </repositories>
+
+@@ .. @@
+            </exclusions>
+        </dependency>
++        
++        <!-- ModelEngine 4 -->
++        <dependency>
++            <groupId>com.ticxo.modelengine</groupId>
++            <artifactId>ModelEngine</artifactId>
++            <version>4.0.7</version>
++            <scope>provided</scope>
++        </dependency>
++        
++        <!-- ModelEngine 3 (fallback) -->
++        <dependency>
++            <groupId>com.ticxo.modelengine</groupId>
++            <artifactId>ModelEngine</artifactId>
++            <version>3.1.7</version>
++            <scope>provided</scope>
++        </dependency>
++        
++        <!-- PlaceholderAPI -->
++        <dependency>
++            <groupId>me.clip</groupId>
++            <artifactId>placeholderapi</artifactId>
++            <version>2.11.6</version>
++            <scope>provided</scope>
++        </dependency>
++        
++        <!-- ProtocolLib (para efectos avanzados) -->
++        <dependency>
++            <groupId>com.comphenix.protocol</groupId>
++            <artifactId>ProtocolLib</artifactId>
++            <version>5.1.0</version>
++            <scope>provided</scope>
++        </dependency>
++        
++        <!-- NBT API (para custom model data) -->
++        <dependency>
++            <groupId>de.tr7zw</groupId>
++            <artifactId>item-nbt-api</artifactId>
++            <version>2.12.4</version>
++            <scope>provided</scope>
++        </dependency>
+     </dependencies>

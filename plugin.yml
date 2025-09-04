@@ -29,3 +29,5 @@ softdepend:
   - ModelEngine
   - BetterRevive
   - Multiverse-Core
+  - ProtocolLib
+  - NBTAPI
