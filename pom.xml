@@ -33,14 +33,6 @@
             </exclusions>
         </dependency>
 +        
-        <!-- ModelEngine (usando JitPack como fallback) -->
-+        <dependency>
-            <groupId>com.github.Ticxo</groupId>
-            <artifactId>ModelEngine</artifactId>
-            <version>R4.0.0</version>
-+            <scope>provided</scope>
-+        </dependency>
-+        
 +        <!-- PlaceholderAPI -->
 +        <dependency>
 +            <groupId>me.clip</groupId>
