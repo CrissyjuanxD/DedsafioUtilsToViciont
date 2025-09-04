@@ -39,13 +39,12 @@ public class SlotMachineConfig {
             
             FileConfiguration defaultConfig = YamlConfiguration.loadConfiguration(configFile);
             
-            // Configuración del modelo 3D y animaciones
-            defaultConfig.set("slot_machine.model_id", "casinod3");
-            defaultConfig.set("slot_machine.idle_animation", "idle");
+            // Configuración básica sin dependencias del mod
+            defaultConfig.set("slot_machine.block_type", "ORANGE_GLAZED_TERRACOTTA");
+            defaultConfig.set("slot_machine.use_particles", true);
             defaultConfig.set("slot_machine.item_required", "vithiums_fichas");
-            defaultConfig.set("slot_machine.force", 0.3);
-            defaultConfig.set("slot_machine.sound.bet", "dtools3:tools.casino.bet");
-            defaultConfig.set("slot_machine.sound.win", "dtools3:tools.casino.win");
+            defaultConfig.set("slot_machine.sound.bet", "BLOCK_NOTE_BLOCK_PLING");
+            defaultConfig.set("slot_machine.sound.win", "UI_TOAST_CHALLENGE_COMPLETE");
             
             // Configuración de slots y recompensas (manteniendo tu sistema)
             defaultConfig.set("SlotMachine.minerales.two_out_of_three", Arrays.asList(
@@ -120,7 +119,6 @@ public class SlotMachineConfig {
             for (int i = 1; i <= 7; i++) {
                 defaultConfig.set("slots.no_reward_" + i + ".name", "Sin premio " + i);
                 defaultConfig.set("slots.no_reward_" + i + ".probability", (50 + i * 5) + "%");
-                defaultConfig.set("slots.no_reward_" + i + ".animation", String.valueOf(i));
                 defaultConfig.set("slots.no_reward_" + i + ".wait_time", 8.0 + (i * 0.5));
             }
             
