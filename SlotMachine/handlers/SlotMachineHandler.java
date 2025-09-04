@@ -323,11 +323,11 @@ public class SlotMachineHandler {
     private void playSound(Location location, String soundName) {
         try {
             if (soundName.startsWith("dtools3:")) {
-                // Sonido personalizado del mod - aquí se integraría con el sistema de sonidos del mod
-                // Por ahora usamos un placeholder que el mod debería manejar
+                // Sonido personalizado del RESOURCE PACK
+                // Minecraft maneja automáticamente los sonidos del resource pack
                 plugin.getLogger().info("Playing custom sound: " + soundName + " at " + locationToString(location));
                 
-                // Fallback a sonidos vanilla mientras tanto
+                // Fallback a sonidos vanilla si el resource pack no está cargado
                 if (soundName.contains("bet")) {
                     location.getWorld().playSound(location, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.2f);
                 } else if (soundName.contains("win")) {

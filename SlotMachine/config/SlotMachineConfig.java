@@ -39,7 +39,10 @@ public class SlotMachineConfig {
             
             FileConfiguration defaultConfig = YamlConfiguration.loadConfiguration(configFile);
             
-            // Configuración básica con dependencias del mod
+            // Configuración básica - REQUIERE RESOURCE PACK con:
+            // - Modelo 3D: casinod3
+            // - Sonidos: dtools3:tools.casino.*
+            // - Animaciones: idle, eon, dedita, nutria, etc.
             defaultConfig.set("slot_machine.model_id", "casinod3");
             defaultConfig.set("slot_machine.idle_animation", "idle");
             defaultConfig.set("slot_machine.item_required", "vithiums_fichas");
