@@ -15,6 +15,14 @@ commands:
     description: See the lives of the player
     usage: /<command>
     aliases: [vidas]
+  spawnslotmachine:
+    description: Spawn a slot machine at your location
+    usage: /<command>
+    permission: viciont.slotmachine.spawn
+  giveslotmachine:
+    description: Give slot machine item to a player
+    usage: /<command> [player] [amount]
+    permission: viciont.slotmachine.give
 softdepend:
   - PlaceholderAPI
   - StreamEvents
