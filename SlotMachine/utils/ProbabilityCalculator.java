@@ -35,14 +35,13 @@ public class ProbabilityCalculator {
             String itemId = slotSection.getString("item_reward.id", null);
             int amount = slotSection.getInt("item_reward.amount", 1);
             String probabilityStr = slotSection.getString("probability", "0%");
-            String animation = slotSection.getString("animation", "default");
             double waitTime = slotSection.getDouble("wait_time", 5.0);
             
             // Parsear probabilidad
             double probability = parseProbability(probabilityStr);
             boolean hasReward = itemId != null && !itemId.isEmpty();
             
-            SlotEntry entry = new SlotEntry(slotId, name, itemId, amount, probability, animation, waitTime, hasReward);
+            SlotEntry entry = new SlotEntry(slotId, name, itemId, amount, probability, waitTime, hasReward);
             slotEntries.add(entry);
         }
         
@@ -78,7 +77,7 @@ public class ProbabilityCalculator {
                     entry.getSlotId(),
                     entry.getItemId(),
                     entry.getAmount(),
-                    entry.getAnimation(),
+                    "default", // Sin animaciones del mod
                     entry.getWaitTime(),
                     entry.hasReward()
                 );
@@ -111,17 +110,15 @@ public class ProbabilityCalculator {
         private final String itemId;
         private final int amount;
         private final double probability;
-        private final String animation;
         private final double waitTime;
         private final boolean hasReward;
         
-        public SlotEntry(String slotId, String name, String itemId, int amount, double probability, String animation, double waitTime, boolean hasReward) {
+        public SlotEntry(String slotId, String name, String itemId, int amount, double probability, double waitTime, boolean hasReward) {
             this.slotId = slotId;
             this.name = name;
             this.itemId = itemId;
             this.amount = amount;
             this.probability = probability;
-            this.animation = animation;
             this.waitTime = waitTime;
             this.hasReward = hasReward;
         }
@@ -132,7 +129,6 @@ public class ProbabilityCalculator {
         public String getItemId() { return itemId; }
         public int getAmount() { return amount; }
         public double getProbability() { return probability; }
-        public String getAnimation() { return animation; }
         public double getWaitTime() { return waitTime; }
         public boolean hasReward() { return hasReward; }
     }

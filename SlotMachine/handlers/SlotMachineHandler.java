@@ -48,11 +48,11 @@ public class SlotMachineHandler {
             return false;
         }
         
-        // Colocar el bloque de la máquina
+        // Colocar el bloque de la máquina (sin modelo 3D)
         location.getBlock().setType(Material.ORANGE_GLAZED_TERRACOTTA);
         
-        // Crear el modelo de la máquina
-        SlotMachineModel machine = new SlotMachineModel(location, config.getModelId());
+        // Crear el modelo de la máquina (sin dependencias del mod)
+        SlotMachineModel machine = new SlotMachineModel(location, "basic_slot_machine");
         activeMachines.put(location, machine);
         
         // Efectos visuales y sonoros
@@ -327,10 +327,11 @@ public class SlotMachineHandler {
     
     private void playSound(Location location, String soundName) {
         try {
-            Sound sound = Sound.valueOf(soundName.toUpperCase().replace(":", "_").replace(".", "_"));
+            // Usar sonidos vanilla de Minecraft en lugar de sonidos del mod
+            Sound sound = Sound.valueOf(soundName.toUpperCase());
             location.getWorld().playSound(location, sound, 1.0f, 1.0f);
         } catch (IllegalArgumentException e) {
-            // Sonido personalizado o no válido, usar sonido por defecto
+            // Si el sonido no existe, usar sonido por defecto
             location.getWorld().playSound(location, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f);
         }
     }
