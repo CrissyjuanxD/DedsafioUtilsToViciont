@@ -63,14 +63,16 @@ public class SlotMachineModel {
         private final int amount;
         private final String animation;
         private final double waitTime;
+        private final String sound;
         private final boolean hasReward;
         
-        public SlotResult(String slotId, String itemId, int amount, String animation, double waitTime, boolean hasReward) {
+        public SlotResult(String slotId, String itemId, int amount, String animation, double waitTime, String sound, boolean hasReward) {
             this.slotId = slotId;
             this.itemId = itemId;
             this.amount = amount;
             this.animation = animation;
             this.waitTime = waitTime;
+            this.sound = sound;
             this.hasReward = hasReward;
         }
         
@@ -80,6 +82,7 @@ public class SlotMachineModel {
         public int getAmount() { return amount; }
         public String getAnimation() { return animation; }
         public double getWaitTime() { return waitTime; }
+        public String getSound() { return sound; }
         public boolean hasReward() { return hasReward; }
     }
 }

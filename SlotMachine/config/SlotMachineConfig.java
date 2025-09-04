@@ -39,12 +39,13 @@ public class SlotMachineConfig {
             
             FileConfiguration defaultConfig = YamlConfiguration.loadConfiguration(configFile);
             
-            // Configuración básica sin dependencias del mod
-            defaultConfig.set("slot_machine.block_type", "ORANGE_GLAZED_TERRACOTTA");
-            defaultConfig.set("slot_machine.use_particles", true);
+            // Configuración básica con dependencias del mod
+            defaultConfig.set("slot_machine.model_id", "casinod3");
+            defaultConfig.set("slot_machine.idle_animation", "idle");
             defaultConfig.set("slot_machine.item_required", "vithiums_fichas");
-            defaultConfig.set("slot_machine.sound.bet", "BLOCK_NOTE_BLOCK_PLING");
-            defaultConfig.set("slot_machine.sound.win", "UI_TOAST_CHALLENGE_COMPLETE");
+            defaultConfig.set("slot_machine.force", 0.3);
+            defaultConfig.set("slot_machine.sound.bet", "dtools3:tools.casino.bet");
+            defaultConfig.set("slot_machine.sound.win", "dtools3:tools.casino.win");
             
             // Configuración de slots y recompensas (manteniendo tu sistema)
             defaultConfig.set("SlotMachine.minerales.two_out_of_three", Arrays.asList(
@@ -93,6 +94,7 @@ public class SlotMachineConfig {
             defaultConfig.set("slots.eon.probability", "10%");
             defaultConfig.set("slots.eon.animation", "eon");
             defaultConfig.set("slots.eon.wait_time", 8.5);
+            defaultConfig.set("slots.eon.sound", "dtools3:tools.casino.win");
             
             defaultConfig.set("slots.dedita.name", "Vithium Fichas");
             defaultConfig.set("slots.dedita.item_reward.id", "vithiums_fichas");
@@ -100,6 +102,7 @@ public class SlotMachineConfig {
             defaultConfig.set("slots.dedita.probability", "30%");
             defaultConfig.set("slots.dedita.animation", "dedita");
             defaultConfig.set("slots.dedita.wait_time", 9.0);
+            defaultConfig.set("slots.dedita.sound", "dtools3:tools.casino.win");
             
             defaultConfig.set("slots.nutria.name", "Nutritótem");
             defaultConfig.set("slots.nutria.item_reward.id", "nutritotem");
@@ -107,6 +110,7 @@ public class SlotMachineConfig {
             defaultConfig.set("slots.nutria.probability", "10%");
             defaultConfig.set("slots.nutria.animation", "nutria");
             defaultConfig.set("slots.nutria.wait_time", 9.6);
+            defaultConfig.set("slots.nutria.sound", "dtools3:tools.casino.win");
             
             defaultConfig.set("slots.corazon.name", "Corazón Extra");
             defaultConfig.set("slots.corazon.item_reward.id", "corazon_extra");
@@ -114,11 +118,13 @@ public class SlotMachineConfig {
             defaultConfig.set("slots.corazon.probability", "10%");
             defaultConfig.set("slots.corazon.animation", "corazon");
             defaultConfig.set("slots.corazon.wait_time", 10.5);
+            defaultConfig.set("slots.corazon.sound", "dtools3:tools.casino.win");
             
             // Slots sin premio
             for (int i = 1; i <= 7; i++) {
                 defaultConfig.set("slots.no_reward_" + i + ".name", "Sin premio " + i);
                 defaultConfig.set("slots.no_reward_" + i + ".probability", (50 + i * 5) + "%");
+                defaultConfig.set("slots.no_reward_" + i + ".animation", String.valueOf(i));
                 defaultConfig.set("slots.no_reward_" + i + ".wait_time", 8.0 + (i * 0.5));
             }
             

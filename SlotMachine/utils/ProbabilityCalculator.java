@@ -36,12 +36,14 @@ public class ProbabilityCalculator {
             int amount = slotSection.getInt("item_reward.amount", 1);
             String probabilityStr = slotSection.getString("probability", "0%");
             double waitTime = slotSection.getDouble("wait_time", 5.0);
+            String animation = slotSection.getString("animation", "default");
+            String sound = slotSection.getString("sound", "dtools3:tools.casino.win");
             
             // Parsear probabilidad
             double probability = parseProbability(probabilityStr);
             boolean hasReward = itemId != null && !itemId.isEmpty();
             
-            SlotEntry entry = new SlotEntry(slotId, name, itemId, amount, probability, waitTime, hasReward);
+            SlotEntry entry = new SlotEntry(slotId, name, itemId, amount, probability, waitTime, animation, sound, hasReward);
             slotEntries.add(entry);
         }
         
@@ -77,8 +79,9 @@ public class ProbabilityCalculator {
                     entry.getSlotId(),
                     entry.getItemId(),
                     entry.getAmount(),
-                    "default", // Sin animaciones del mod
+                    entry.getAnimation(),
                     entry.getWaitTime(),
+                    entry.getSound(),
                     entry.hasReward()
                 );
             }
@@ -93,12 +96,13 @@ public class ProbabilityCalculator {
                 lastEntry.getAmount(),
                 lastEntry.getAnimation(),
                 lastEntry.getWaitTime(),
+                lastEntry.getSound(),
                 lastEntry.hasReward()
             );
         }
         
         // Resultado por defecto si no hay slots configurados
-        return new SlotMachineModel.SlotResult("no_reward", null, 0, "default", 5.0, false);
+        return new SlotMachineModel.SlotResult("no_reward", null, 0, "default", 5.0, "dtools3:tools.casino.lose", false);
     }
     
     /**
@@ -111,15 +115,19 @@ public class ProbabilityCalculator {
         private final int amount;
         private final double probability;
         private final double waitTime;
+        private final String animation;
+        private final String sound;
         private final boolean hasReward;
         
-        public SlotEntry(String slotId, String name, String itemId, int amount, double probability, double waitTime, boolean hasReward) {
+        public SlotEntry(String slotId, String name, String itemId, int amount, double probability, double waitTime, String animation, String sound, boolean hasReward) {
             this.slotId = slotId;
             this.name = name;
             this.itemId = itemId;
             this.amount = amount;
             this.probability = probability;
             this.waitTime = waitTime;
+            this.animation = animation;
+            this.sound = sound;
             this.hasReward = hasReward;
         }
         
@@ -130,6 +138,8 @@ public class ProbabilityCalculator {
         public int getAmount() { return amount; }
         public double getProbability() { return probability; }
         public double getWaitTime() { return waitTime; }
+        public String getAnimation() { return animation; }
+        public String getSound() { return sound; }
         public boolean hasReward() { return hasReward; }
     }
 }

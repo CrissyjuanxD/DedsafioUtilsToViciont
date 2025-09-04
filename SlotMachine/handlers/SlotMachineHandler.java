@@ -48,11 +48,11 @@ public class SlotMachineHandler {
             return false;
         }
         
-        // Colocar el bloque de la máquina (sin modelo 3D)
+        // Colocar el bloque de la máquina
         location.getBlock().setType(Material.ORANGE_GLAZED_TERRACOTTA);
         
-        // Crear el modelo de la máquina (sin dependencias del mod)
-        SlotMachineModel machine = new SlotMachineModel(location, "basic_slot_machine");
+        // Crear el modelo de la máquina con modelo 3D del mod
+        SlotMachineModel machine = new SlotMachineModel(location, config.getModelId());
         activeMachines.put(location, machine);
         
         // Efectos visuales y sonoros
@@ -133,8 +133,6 @@ public class SlotMachineHandler {
         
         // Sonidos de inicio
         playSound(location, config.getBetSound());
-        location.getWorld().playSound(location, Sound.BLOCK_PISTON_EXTEND, 1.0f, 1.0f);
-        location.getWorld().playSound(location, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.2f);
     }
     
     /**
@@ -190,8 +188,6 @@ public class SlotMachineHandler {
             
             // Sonidos de victoria
             playSound(location, config.getWinSound());
-            location.getWorld().playSound(location, Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
-            location.getWorld().playSound(location, Sound.ENTITY_PLAYER_LEVELUP, 1.0f, 1.5f);
             
             // Mensaje de victoria
             player.sendMessage(ChatColor.of("#B5EAD7") + "۞ ¡Has ganado " + 
@@ -200,8 +196,7 @@ public class SlotMachineHandler {
                 
         } else {
             // Sonidos de pérdida
-            location.getWorld().playSound(location, Sound.BLOCK_NOTE_BLOCK_BASS, 1.0f, 0.5f);
-            location.getWorld().playSound(location, Sound.ENTITY_VILLAGER_NO, 0.8f, 0.8f);
+            playSound(location, "dtools3:tools.casino.lose");
             
             player.sendMessage(ChatColor.of("#FF6B6B") + "¡No hay suerte esta vez!");
         }
@@ -327,9 +322,24 @@ public class SlotMachineHandler {
     
     private void playSound(Location location, String soundName) {
         try {
-            // Usar sonidos vanilla de Minecraft en lugar de sonidos del mod
-            Sound sound = Sound.valueOf(soundName.toUpperCase());
-            location.getWorld().playSound(location, sound, 1.0f, 1.0f);
+            if (soundName.startsWith("dtools3:")) {
+                // Sonido personalizado del mod - aquí se integraría con el sistema de sonidos del mod
+                // Por ahora usamos un placeholder que el mod debería manejar
+                plugin.getLogger().info("Playing custom sound: " + soundName + " at " + locationToString(location));
+                
+                // Fallback a sonidos vanilla mientras tanto
+                if (soundName.contains("bet")) {
+                    location.getWorld().playSound(location, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.2f);
+                } else if (soundName.contains("win")) {
+                    location.getWorld().playSound(location, Sound.UI_TOAST_CHALLENGE_COMPLETE, 1.0f, 1.0f);
+                } else if (soundName.contains("lose")) {
+                    location.getWorld().playSound(location, Sound.BLOCK_NOTE_BLOCK_BASS, 1.0f, 0.5f);
+                }
+            } else {
+                // Sonidos vanilla de Minecraft
+                Sound sound = Sound.valueOf(soundName.toUpperCase());
+                location.getWorld().playSound(location, sound, 1.0f, 1.0f);
+            }
         } catch (IllegalArgumentException e) {
             // Si el sonido no existe, usar sonido por defecto
             location.getWorld().playSound(location, Sound.BLOCK_NOTE_BLOCK_PLING, 1.0f, 1.0f);
