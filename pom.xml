@@ -1,33 +1,38 @@
 @@ .. @@
+    </properties>
+    <repositories>
+        <!-- JitPack debe ir PRIMERO para ModelEngine -->
         <repository>
-            <id>papermc</id>
-            <url>https://repo.papermc.io/repository/maven-public/</url>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
         </repository>
-        <repository>
-            <id>codemc-repo</id>
-            <url>https://repo.codemc.org/repository/maven-public/</url>
-        </repository>
-        <repository>
-            <id>placeholderapi</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
+        
+        <!-- Repositorios específicos ANTES que spigot -->
         <repository>
             <id>dmulloy2-repo</id>
             <url>https://repo.dmulloy2.net/repository/public/</url>
         </repository>
-+        <repository>
-+            <id>ticxo-repo</id>
-+            <url>https://repo.ticxo.com/repository/maven-public/</url>
-+        </repository>
-+        <repository>
-+            <id>jitpack.io</id>
-+            <url>https://jitpack.io</url>
-+        </repository>
-+        <repository>
-+            <id>codemc-repo</id>
-+            <url>https://repo.codemc.org/repository/maven-public/</url>
-+        </repository>
-     </repositories>
+        
+        <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        
+        <repository>
+            <id>codemc-repo</id>
+            <url>https://repo.codemc.org/repository/maven-public/</url>
+        </repository>
+        
+        <!-- Repositorios generales AL FINAL -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+    </repositories>
 
         <!-- ModelEngine API -->
         <dependency>
@@ -40,28 +45,28 @@
 @@ .. @@
             </exclusions>
         </dependency>
-+        
-+        <!-- PlaceholderAPI -->
-+        <dependency>
-+            <groupId>me.clip</groupId>
-+            <artifactId>placeholderapi</artifactId>
+        
+        <!-- PlaceholderAPI -->
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
             <version>2.11.5</version>
-+            <scope>provided</scope>
-+        </dependency>
-+        
-+        <!-- ProtocolLib (para efectos avanzados) -->
-+        <dependency>
-+            <groupId>com.comphenix.protocol</groupId>
-+            <artifactId>ProtocolLib</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- ProtocolLib (para efectos avanzados) -->
+        <dependency>
+            <groupId>com.comphenix.protocol</groupId>
+            <artifactId>ProtocolLib</artifactId>
             <version>5.0.0</version>
-+            <scope>provided</scope>
-+        </dependency>
-+        
-+        <!-- NBT API (para custom model data) -->
-+        <dependency>
-+            <groupId>de.tr7zw</groupId>
-+            <artifactId>item-nbt-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        
+        <!-- NBT API (para custom model data) -->
+        <dependency>
+            <groupId>de.tr7zw</groupId>
+            <artifactId>item-nbt-api</artifactId>
             <version>2.12.0</version>
-+            <scope>provided</scope>
-+        </dependency>
-     </dependencies>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
