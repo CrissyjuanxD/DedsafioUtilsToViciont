@@ -20,7 +20,7 @@ public class ItemCreator {
     
     public ItemStack createItem(String itemId, int amount) {
         try {
-            ItemStack item = null;
+            ItemStack item;
             
             switch (itemId.toLowerCase()) {
                 // Totems
@@ -120,9 +120,7 @@ public class ItemCreator {
                     return null;
             }
             
-            if (item != null) {
-                item.setAmount(amount);
-            }
+            item.setAmount(amount);
             
             return item;
             

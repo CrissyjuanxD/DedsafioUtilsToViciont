@@ -55,18 +55,6 @@ public class SlotMachine {
         return machine != null && !machine.isActive();
     }
     
-    public void addActiveMachine(Location location, SlotMachineModel model) {
-        activeMachines.put(location, model);
-    }
-    
-    public void removeActiveMachine(Location location) {
-        activeMachines.remove(location);
-    }
-    
-    public SlotMachineModel getActiveMachine(Location location) {
-        return activeMachines.get(location);
-    }
-    
     // Getters
     public String getId() { return id; }
     public String getName() { return name; }

@@ -217,15 +217,86 @@ public class SlotMachineManager {
     }
     
     private void executeSpin(SlotMachine slotMachine, SlotMachineModel model, Player player) {
+        // Lógica de spin basada en DTools3
+        Map<String, SlotM> slots = slotMachine.getSlots();
+        if (slots.isEmpty()) {
+            player.sendMessage(ChatColor.of("#FF6B6B") + "۞ Error: No hay slots configurados.");
+            model.setActive(false);
+            return;
+        }
+        
         // Calcular resultado basado en probabilidades
-        // Implementar lógica de spin similar a DTools3
+        SlotM selectedSlot = calculateSlotResult(slots);
+        
+        if (selectedSlot == null) {
+            player.sendMessage(ChatColor.of("#FF6B6B") + "۞ Error en el cálculo de probabilidades.");
+            model.setActive(false);
+            return;
+        }
         
         player.sendMessage(ChatColor.of("#B5EAD7") + "۞ ¡Girando la máquina!");
         
-        // Finalizar después de un tiempo
+        // Ejecutar resultado después del tiempo de espera
+        long waitTicks = (long) (selectedSlot.getWaitTime() * 20); // Convertir segundos a ticks
+        
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            executeSlotResult(slotMachine, selectedSlot, player);
             model.setActive(false);
-        }, 100L);
+        }, waitTicks);
+    }
+    
+    private SlotM calculateSlotResult(Map<String, SlotM> slots) {
+        // Calcular probabilidades acumulativas
+        double totalProbability = 0.0;
+        for (SlotM slot : slots.values()) {
+            totalProbability += slot.getProbability();
+        }
+        
+        // Generar número aleatorio
+        double randomValue = random.nextDouble() * totalProbability;
+        
+        // Seleccionar slot basado en probabilidad
+        double currentProbability = 0.0;
+        for (SlotM slot : slots.values()) {
+            currentProbability += slot.getProbability();
+            if (randomValue <= currentProbability) {
+                return slot;
+            }
+        }
+        
+        // Fallback al primer slot
+        return slots.values().iterator().next();
+    }
+    
+    private void executeSlotResult(SlotMachine slotMachine, SlotM slot, Player player) {
+        if (slot.hasReward()) {
+            // Dar recompensa
+            ItemStack reward = itemCreator.createItem(slot.getItemRewardId(), slot.getItemRewardAmount());
+            if (reward != null) {
+                player.getInventory().addItem(reward);
+                
+                String message = ChatColor.of("#B5EAD7") + "۞ ¡Ganaste " + slot.getItemRewardAmount() + "x " + slot.getName() + "!";
+                
+                if (slotMachine.isMessageBroadcast()) {
+                    // Broadcast a todos los jugadores
+                    for (Player onlinePlayer : plugin.getServer().getOnlinePlayers()) {
+                        onlinePlayer.sendMessage(message);
+                    }
+                } else {
+                    // Solo al jugador
+                    player.sendMessage(message);
+                }
+                
+                // Reproducir sonido de victoria
+                player.playSound(player.getLocation(), slot.getSound(), 1.0f, 1.0f);
+            } else {
+                player.sendMessage(ChatColor.of("#FF6B6B") + "۞ Error al crear la recompensa.");
+            }
+        } else {
+            // Sin recompensa
+            player.sendMessage(ChatColor.of("#FF6B6B") + "۞ ¡No hay suerte esta vez!");
+            player.playSound(player.getLocation(), "dtools3:tools.casino.lose", 1.0f, 1.0f);
+        }
     }
     
     public void cleanupPlayerMachines(Player player) {

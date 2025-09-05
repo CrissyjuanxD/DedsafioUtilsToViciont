@@ -96,7 +96,7 @@ public class SlotMachineListener implements Listener {
         }
         
         // Iniciar uso de la máquina
-        manager.startUsing(model, player);
+        manager.startUsing(slotMachine, model, player);
     }
     
     @EventHandler
