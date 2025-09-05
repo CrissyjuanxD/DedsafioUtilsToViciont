@@ -93,6 +93,22 @@ slot_machines:
         probability: 70%
         animation: 6
         wait-time: 8
+      # NUEVO SLOT CON PREMIO
+      diamante:
+        name: "Diamante"
+        item_reward:
+          id: diamond
+          amount: 3
+        probability: 15%
+        animation: diamond
+        wait-time: 9.0
+        sound: dtools3:tools.casino.win
+      # NUEVO SLOT SIN PREMIO
+      no_reward_8:
+        name: "Sin premio 8"
+        probability: 45%
+        animation: 8
+        wait-time: 7.0
   premium:
     name: '&ePremium Slot Machine'
     message-broadcast: true
