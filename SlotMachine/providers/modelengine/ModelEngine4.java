@@ -1,4 +1,4 @@
-package SlotMachine.providers;
+package SlotMachine.providers.modelengine;
 
 import com.ticxo.modelengine.api.ModelEngineAPI;
 import com.ticxo.modelengine.api.model.ActiveModel;
@@ -7,16 +7,16 @@ import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Proveedor para ModelEngine 4
- * Basado en el código de DedsafioUtils
+ * Proveedor para ModelEngine 4 - Basado en DTools3
  */
-public class ModelEngine4Provider extends ModelEngineProvider {
+public class ModelEngine4 {
     
-    public ModelEngine4Provider(JavaPlugin plugin) {
-        super(plugin);
+    private final JavaPlugin plugin;
+    
+    public ModelEngine4(JavaPlugin plugin) {
+        this.plugin = plugin;
     }
     
-    @Override
     public boolean createModel(Entity entity, String modelId) {
         try {
             // Crear ModeledEntity usando la API correcta de ME4
@@ -45,7 +45,6 @@ public class ModelEngine4Provider extends ModelEngineProvider {
         }
     }
     
-    @Override
     public boolean playAnimation(Entity entity, String animation) {
         try {
             ModeledEntity modeledEntity = ModelEngineAPI.api().getModelManager().getModeledEntity(entity);
@@ -69,28 +68,6 @@ public class ModelEngine4Provider extends ModelEngineProvider {
         }
     }
     
-    @Override
-    public boolean stopAnimation(Entity entity) {
-        try {
-            ModeledEntity modeledEntity = ModelEngineAPI.api().getModelManager().getModeledEntity(entity);
-            if (modeledEntity == null) {
-                return false;
-            }
-            
-            // Detener todas las animaciones
-            modeledEntity.getActiveModels().values().forEach(model -> {
-                model.getAnimationHandler().stopAllAnimations();
-            });
-            
-            return true;
-            
-        } catch (Exception e) {
-            plugin.getLogger().severe("Error stopping animations: " + e.getMessage());
-            return false;
-        }
-    }
-    
-    @Override
     public boolean removeModel(Entity entity) {
         try {
             ModeledEntity modeledEntity = ModelEngineAPI.api().getModelManager().getModeledEntity(entity);
@@ -108,17 +85,11 @@ public class ModelEngine4Provider extends ModelEngineProvider {
         }
     }
     
-    @Override
     public boolean hasModel(Entity entity) {
         try {
             return ModelEngineAPI.api().getModelManager().getModeledEntity(entity) != null;
         } catch (Exception e) {
             return false;
         }
-    }
-    
-    @Override
-    public String getVersion() {
-        return "ModelEngine 4";
     }
 }

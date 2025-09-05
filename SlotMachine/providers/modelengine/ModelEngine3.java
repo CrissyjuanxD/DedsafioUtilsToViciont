@@ -1,30 +1,22 @@
-package SlotMachine.providers;
+package SlotMachine.providers.modelengine;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
- * Proveedor para ModelEngine 3
- * Implementación básica para compatibilidad
+ * Proveedor para ModelEngine 3 - Basado en DTools3
  */
-public class ModelEngine3Provider extends ModelEngineProvider {
+public class ModelEngine3 {
     
-    public ModelEngine3Provider(JavaPlugin plugin) {
-        super(plugin);
+    private final JavaPlugin plugin;
+    
+    public ModelEngine3(JavaPlugin plugin) {
+        this.plugin = plugin;
     }
     
-    @Override
     public boolean createModel(Entity entity, String modelId) {
         try {
             // Para ModelEngine 3, usarías la API antigua
-            // Ejemplo básico (necesitarías ajustar según la versión exacta):
-            /*
-            ModelEngine modelEngine = ModelEngine.getInstance();
-            ModeledEntity modeledEntity = modelEngine.createModeledEntity(entity);
-            ActiveModel activeModel = modelEngine.createActiveModel(modelId);
-            modeledEntity.addModel(activeModel);
-            */
-            
             plugin.getLogger().info("ModelEngine 3 model creation - using fallback");
             return true;
             
@@ -34,7 +26,6 @@ public class ModelEngine3Provider extends ModelEngineProvider {
         }
     }
     
-    @Override
     public boolean playAnimation(Entity entity, String animation) {
         try {
             plugin.getLogger().info("ModelEngine 3 animation: " + animation + " - using fallback");
@@ -45,23 +36,11 @@ public class ModelEngine3Provider extends ModelEngineProvider {
         }
     }
     
-    @Override
-    public boolean stopAnimation(Entity entity) {
-        return true;
-    }
-    
-    @Override
     public boolean removeModel(Entity entity) {
         return true;
     }
     
-    @Override
     public boolean hasModel(Entity entity) {
         return false;
-    }
-    
-    @Override
-    public String getVersion() {
-        return "ModelEngine 3";
     }
 }

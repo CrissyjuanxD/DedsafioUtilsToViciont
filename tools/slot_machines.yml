@@ -6,7 +6,7 @@ config:
   fade-out: 0
   message-type: "TITLE"
   sound: "dtools3:tools.casino.bet"
-slot_machines: #Modificar las recompensas
+slot_machines:
   default:
     name: '&eSimple Slot Machine'
     message-broadcast: false
@@ -20,7 +20,7 @@ slot_machines: #Modificar las recompensas
     slots:
       eon:
         name: "Totem Eon"
-        item-reward:
+        item_reward:
           id: totem_eon
           amount: 1
         probability: 10%
@@ -29,7 +29,7 @@ slot_machines: #Modificar las recompensas
         sound: dtools3:tools.casino.win
       dedita:
         name: "Dedita Naranja"
-        item-reward:
+        item_reward:
           id: dedita_naranja
           amount: 20
         probability: 30%
@@ -38,25 +38,16 @@ slot_machines: #Modificar las recompensas
         sound: dtools3:tools.casino.win
       nutria:
         name: "Nutritótem"
-        item-reward:
+        item_reward:
           id: nutritotem
           amount: 1
         probability: 10%
         animation: nutria
         wait-time: 9.6
         sound: dtools3:tools.casino.win
-      brocoli:
-        name: "Brocoli"
-        item-reward:
-          id: APPLE
-          amount: 1
-        probability: 40%
-        animation: brocoli
-        wait-time: 10.5
-        sound: dtools3:tools.casino.win
       corazon:
         name: 'Corazon Extra'
-        item-reward:
+        item_reward:
           id: corazon_extra
           amount: 1
         probability: 10%
@@ -65,30 +56,12 @@ slot_machines: #Modificar las recompensas
         sound: dtools3:tools.casino.win
       oro:
         name: "Lingote de Oro"
-        item-reward:
+        item_reward:
           id: GOLD_INGOT
           amount: 5
         probability: 50%
         animation: oro
         wait-time: 10.7
-        sound: dtools3:tools.casino.win
-      pocion:
-        name: "Bloqueador Solar"
-        item-reward:
-          id: bloqueador
-          amount: 1
-        probability: 15%
-        animation: poción
-        wait-time: 9.0
-        sound: dtools3:tools.casino.win
-      pluma:
-        name: "Píldora del Experimento 110"
-        item-reward:
-          id: pildora_del_experimento_110
-          amount: 1
-        probability: 10%
-        animation: pluma
-        wait-time: 9.5
         sound: dtools3:tools.casino.win
       no_reward_1:
         name: "Sin premio 1"
