@@ -21,7 +21,7 @@ slot_machines:
       eon:
         name: "Totem Eon"
         item_reward:
-          id: totem_eon
+          id: doubletotem
           amount: 1
         probability: 10%
         animation: eon
@@ -30,7 +30,7 @@ slot_machines:
       dedita:
         name: "Dedita Naranja"
         item_reward:
-          id: dedita_naranja
+          id: vithiums
           amount: 20
         probability: 30%
         animation: dedita
@@ -39,7 +39,7 @@ slot_machines:
       nutria:
         name: "Nutritótem"
         item_reward:
-          id: nutritotem
+          id: lifetotem
           amount: 1
         probability: 10%
         animation: nutria
@@ -48,7 +48,7 @@ slot_machines:
       corazon:
         name: 'Corazon Extra'
         item_reward:
-          id: corazon_extra
+          id: orbe_de_vida
           amount: 1
         probability: 10%
         animation: corazon
@@ -57,7 +57,7 @@ slot_machines:
       oro:
         name: "Lingote de Oro"
         item_reward:
-          id: GOLD_INGOT
+          id: gold_ingot
           amount: 5
         probability: 50%
         animation: oro
@@ -93,3 +93,55 @@ slot_machines:
         probability: 70%
         animation: 6
         wait-time: 8
+  premium:
+    name: '&ePremium Slot Machine'
+    message-broadcast: true
+    messages:
+      - '&a¡Ganaste x%amount% %name%!'
+    data:
+      model-id: casinod3_premium
+      idle-animation: idle
+      item-required: vithiums_fichas
+      force: 0.5
+    slots:
+      enderite:
+        name: "Enderite Ingot"
+        item_reward:
+          id: enderite_ingot
+          amount: 1
+        probability: 5%
+        animation: enderite
+        wait-time: 12.0
+        sound: dtools3:tools.casino.win
+      emblem:
+        name: "End Relic"
+        item_reward:
+          id: end_relic
+          amount: 1
+        probability: 3%
+        animation: emblem
+        wait-time: 15.0
+        sound: dtools3:tools.casino.win
+      corrupted_apple:
+        name: "Corrupted Golden Apple"
+        item_reward:
+          id: corrupted_golden_apple
+          amount: 1
+        probability: 8%
+        animation: corrupted
+        wait-time: 10.0
+        sound: dtools3:tools.casino.win
+      vithiums_big:
+        name: "Vithiums"
+        item_reward:
+          id: vithiums
+          amount: 100
+        probability: 25%
+        animation: vithiums
+        wait-time: 8.0
+        sound: dtools3:tools.casino.win
+      no_reward_premium:
+        name: "Sin premio premium"
+        probability: 59%
+        animation: fail
+        wait-time: 5.0
