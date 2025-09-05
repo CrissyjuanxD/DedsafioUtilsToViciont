@@ -50,14 +50,16 @@ public abstract class ModelEngineProvider {
      */
     public static ModelEngineProvider createProvider(JavaPlugin plugin) {
         try {
-            // Intentar ModelEngine 4 primero
+            // Intentar ModelEngine 4 primero (API más nueva)
             Class.forName("com.ticxo.modelengine.api.ModelEngineAPI");
+            // Verificar que tenga los métodos de la API nueva
+            Class.forName("com.ticxo.modelengine.api.model.ModeledEntity");
             plugin.getLogger().info("Detected ModelEngine 4");
             return new ModelEngine4Provider(plugin);
         } catch (ClassNotFoundException e) {
             try {
-                // Intentar ModelEngine 3
-                Class.forName("com.ticxo.modelengine.api.ModelEngine");
+                // Intentar ModelEngine 3 (API antigua)
+                Class.forName("com.ticxo.modelengine.ModelEngine");
                 plugin.getLogger().info("Detected ModelEngine 3");
                 return new ModelEngine3Provider(plugin);
             } catch (ClassNotFoundException e2) {
