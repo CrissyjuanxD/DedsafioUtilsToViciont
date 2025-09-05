@@ -145,20 +145,25 @@ public class SlotMachineManager {
         entity.setMetadata("slot_machine", new FixedMetadataValue(plugin, slotMachine.getModelId()));
         
         // Crear modelo 3D
-        boolean modelCreated = false;
+        UUID modelUUID = null;
         if (useModelEngine4 && modelEngine4 != null) {
-            modelCreated = modelEngine4.createModel(entity, slotMachine.getModelId());
+            modelUUID = modelEngine4.spawnModel(entity, slotMachine.getModelId());
         } else if (modelEngine3 != null) {
-            modelCreated = modelEngine3.createModel(entity, slotMachine.getModelId());
+            // Para ModelEngine3 mantener compatibilidad
+            boolean created = modelEngine3.createModel(entity, slotMachine.getModelId());
+            if (created) {
+                modelUUID = entity.getUniqueId();
+            }
         }
         
-        if (!modelCreated) {
+        if (modelUUID == null) {
             plugin.getLogger().warning("Failed to create 3D model for slot machine");
         }
         
         // Crear modelo de datos
         SlotMachineModel model = new SlotMachineModel(slotMachine.getId(), location);
         model.setEntity(entity);
+        model.setModelUUID(modelUUID);
         activeMachines.put(location, model);
         
         creator.sendMessage(ChatColor.of("#B5EAD7") + "۞ Slot Machine creada exitosamente!");
@@ -238,6 +243,11 @@ public class SlotMachineManager {
         
         // Ejecutar resultado después del tiempo de espera
         long waitTicks = (long) (selectedSlot.getWaitTime() * 20); // Convertir segundos a ticks
+        
+        // Reproducir animación si está disponible
+        if (model.getModelUUID() != null && useModelEngine4 && modelEngine4 != null) {
+            modelEngine4.playAnimation(model.getModelUUID(), slotMachine.getModelId(), selectedSlot.getAnimation());
+        }
         
         plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
             executeSlotResult(slotMachine, selectedSlot, player);
