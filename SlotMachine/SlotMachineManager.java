@@ -6,6 +6,7 @@ import SlotMachine.cache.tools.smachine.SlotMachineTool;
 import SlotMachine.listeners.SlotMachineListener;
 import SlotMachine.providers.modelengine.ModelEngine3;
 import SlotMachine.providers.modelengine.ModelEngine4;
+import SlotMachine.commands.SlotMachineCommand;
 import SlotMachine.utils.ItemCreator;
 import vct.hardcore3.ViciontHardcore3;
 import net.md_5.bungee.api.ChatColor;
@@ -16,9 +17,14 @@ import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.Random;
 
 /**
@@ -33,6 +39,8 @@ public class SlotMachineManager {
     private ModelEngine4 modelEngine4;
     private ModelEngine3 modelEngine3;
     private boolean useModelEngine4;
+    private SlotMachineCommand slotMachineCommand;
+    private final Map<Location, SlotMachineModel> activeMachines = new ConcurrentHashMap<>();
     private final Random random = new Random();
     
     public SlotMachineManager(ViciontHardcore3 plugin) {
@@ -55,6 +63,9 @@ public class SlotMachineManager {
         
         // Registrar eventos
         plugin.getServer().getPluginManager().registerEvents(listener, plugin);
+        
+        // Inicializar y registrar comandos
+        initializeCommands();
         
         plugin.getLogger().info("SlotMachine system initialized successfully!");
     }
@@ -91,10 +102,29 @@ public class SlotMachineManager {
         }
     }
     
-    public boolean createSlotMachine(Location location, Player creator) {
-        SlotMachine slotMachine = slotMachineTool.getDefaultSlotMachine();
+    private void initializeCommands() {
+        this.slotMachineCommand = new SlotMachineCommand(plugin, this);
+        
+        PluginCommand command = plugin.getCommand("slotmachine");
+        if (command != null) {
+            command.setExecutor(slotMachineCommand);
+            command.setTabCompleter(slotMachineCommand);
+        }
+    }
+    
+    public boolean createSlotMachine(Location location, Player creator, String machineId) {
+        SlotMachine slotMachine = slotMachineTool.getSlotMachine(machineId);
         if (slotMachine == null) {
-            creator.sendMessage(ChatColor.of("#FF6B6B") + "۞ Error: SlotMachine no configurada.");
+            slotMachine = slotMachineTool.getDefaultSlotMachine();
+            if (slotMachine == null) {
+                creator.sendMessage(ChatColor.of("#FF6B6B") + "۞ Error: SlotMachine no configurada.");
+                return false;
+            }
+        }
+        
+        // Verificar si ya existe una máquina en esa ubicación
+        if (activeMachines.containsKey(location)) {
+            creator.sendMessage(ChatColor.of("#FF6B6B") + "۞ Ya existe una Slot Machine en esa ubicación.");
             return false;
         }
         
@@ -129,10 +159,52 @@ public class SlotMachineManager {
         // Crear modelo de datos
         SlotMachineModel model = new SlotMachineModel(slotMachine.getId(), location);
         model.setEntity(entity);
-        slotMachine.addActiveMachine(location, model);
+        activeMachines.put(location, model);
         
         creator.sendMessage(ChatColor.of("#B5EAD7") + "۞ Slot Machine creada exitosamente!");
         return true;
+    }
+    
+    public boolean removeSlotMachine(Location location) {
+        SlotMachineModel model = activeMachines.remove(location);
+        if (model == null) {
+            return false;
+        }
+        
+        if (model.getEntity() != null) {
+            if (useModelEngine4 && modelEngine4 != null) {
+                modelEngine4.removeModel(model.getEntity());
+            } else if (modelEngine3 != null) {
+                modelEngine3.removeModel(model.getEntity());
+            }
+            model.getEntity().remove();
+        }
+        
+        return true;
+    }
+    
+    public void reloadConfiguration() {
+        loadConfiguration();
+    }
+    
+    public int getActiveMachinesCount() {
+        return activeMachines.size();
+    }
+    
+    public int getLoadedConfigsCount() {
+        return slotMachineTool.getSlotMachines().size();
+    }
+    
+    public boolean isModelEngineAvailable() {
+        return modelEngine4 != null || modelEngine3 != null;
+    }
+    
+    public List<String> getAvailableMachineIds() {
+        return new ArrayList<>(slotMachineTool.getSlotMachines().keySet());
+    }
+    
+    public SlotMachineModel getSlotMachine(Location location) {
+        return activeMachines.get(location);
     }
     
     public void startUsing(SlotMachine slotMachine, SlotMachineModel model, Player player) {
@@ -158,30 +230,26 @@ public class SlotMachineManager {
     
     public void cleanupPlayerMachines(Player player) {
         // Limpiar máquinas del jugador
-        for (SlotMachine slotMachine : slotMachineTool.getSlotMachines().values()) {
-            for (SlotMachineModel model : slotMachine.getActiveMachines().values()) {
-                if (model.isActive()) {
-                    model.setActive(false);
-                }
+        for (SlotMachineModel model : activeMachines.values()) {
+            if (model.isActive()) {
+                model.setActive(false);
             }
         }
     }
     
     public void shutdown() {
         // Limpiar todas las máquinas activas
-        for (SlotMachine slotMachine : slotMachineTool.getSlotMachines().values()) {
-            for (SlotMachineModel model : slotMachine.getActiveMachines().values()) {
-                if (model.getEntity() != null) {
-                    if (useModelEngine4 && modelEngine4 != null) {
-                        modelEngine4.removeModel(model.getEntity());
-                    } else if (modelEngine3 != null) {
-                        modelEngine3.removeModel(model.getEntity());
-                    }
-                    model.getEntity().remove();
+        for (SlotMachineModel model : activeMachines.values()) {
+            if (model.getEntity() != null) {
+                if (useModelEngine4 && modelEngine4 != null) {
+                    modelEngine4.removeModel(model.getEntity());
+                } else if (modelEngine3 != null) {
+                    modelEngine3.removeModel(model.getEntity());
                 }
+                model.getEntity().remove();
             }
-            slotMachine.getActiveMachines().clear();
         }
+        activeMachines.clear();
         
         plugin.getLogger().info("SlotMachine system shutdown completed.");
     }

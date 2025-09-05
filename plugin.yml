@@ -23,6 +23,11 @@ commands:
     description: Give slot machine item to a player
     usage: /<command> [player] [amount]
     permission: viciont.slotmachine.give
+  slotmachine:
+    description: Slot machine management commands
+    usage: /<command> <spawn|give|remove|reload|info>
+    permission: viciont.slotmachine.admin
+    aliases: [sm, slotm]
 softdepend:
   - PlaceholderAPI
   - StreamEvents
