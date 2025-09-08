@@ -1,0 +1,94 @@
+enabled: true
+config:
+  max-ticks: 0
+  fade-in: 0
+  stay: 5
+  fade-out: 0
+  message-type: "CHAT"
+states:
+  join:
+    name: '&eJoin'
+    messages:
+      - ':little-roulette: #4cc240%owner% se ha conectado'
+    status-type: 'JOIN'
+  leave:
+    name: '&eLeave'
+    messages:
+      - ':little-roulette-off: &7%owner% se ha desconectado'
+    status-type: 'LEAVE'
+  sun:
+    name: '&eSun'
+    on-messages:
+      - ':little-roulette: #4cc240El evento de sol está activado'
+    off-messages:
+      - ':little-roulette-off: &7El evento de sol está desactivado'
+    status-type: 'SUN'
+  eternal-fire:
+    name: '&eEternal Fire'
+    on-messages:
+      - ':little-roulette: #4cc240El fuego eterno está activado'
+    off-messages:
+      - ':little-roulette-off: &7El fuego eterno está desactivado'
+    status-type: 'ETERNAL_FIRE'
+  zombification:
+    name: '&eZombification'
+    on-messages:
+      - ':little-roulette: #4cc240La zombificación está activada'
+    off-messages:
+      - ':little-roulette-off: &7La zombificación está desactivada'
+    toggleable: false
+    zombification-time: 1800
+    status-type: 'ZOMBIFICATION'
+  water_oxygen:
+    name: '&eSin oxígeno'
+    on-messages:
+      - ':little-roulette: #4cc240La persistencia del oxigeno bajo el agua está activada'
+    off-messages:
+      - ':little-roulette-off: &7La persistencia del oxigeno bajo el agua está desactivada'
+    status-type: 'WATER_OXYGEN'
+  blaze_teleport:
+    name: '&eTeleportación de blaze'
+    on-messages:
+      - ':little-roulette: #4cc240El intercambio de posición al ser atacado por un blaze está activado'
+    off-messages:
+      - ':little-roulette-off: &7El intercambio de posición al ser atacado por un blaze está desactivado'
+    entity-type: 'BLAZE'
+    status-type: 'ENTITY_TELEPORT'
+  phantom_shuffle:
+    name: '&eShuffle de fantasmas'
+    on-messages:
+      - ':little-roulette: #4cc240La aleatoriedad de items al ser atacado por un fantasma está activada'
+    off-messages:
+      - ':little-roulette-off: &7La aleatoriedad de items al ser atacado por un fantasma está desactivada'
+    entity-type: 'PHANTOM'
+    status-type: 'ENTITY_SHUFFLE'
+  doors_interact_damage:
+    name: '&eDaño de interacción con puertas'
+    on-messages:
+      - ':little-roulette: #4cc240El daño de interacción con puertas está activado'
+    off-messages:
+      - ':little-roulette-off: &7El daño de interacción con puertas está desactivado'
+    status-type: 'INTERACT_DAMAGE'
+    damage: 99999.0
+    interact-material: DOOR
+  buttons_interact_damage:
+    name: '&eDaño de interacción con puertas'
+    on-messages:
+      - ':little-roulette: #4cc240El daño de interacción con botones está activado'
+    off-messages:
+      - ':little-roulette-off: &7El daño de interacción con botones está desactivado'
+    status-type: 'INTERACT_DAMAGE'
+    damage: 99999.0
+    interact-material: BUTTON
+  kill_1k_mobs:
+    name: '&eMatar 1000 mobs'
+    on-messages:
+      - ':little-roulette: #4cc240El objetivo de matar 1000 mobs ha comenzado'
+    off-messages:
+      - ':little-roulette-off: &7Ha finalizado el objetivo.'
+    status-type: 'OBJECTIVE'
+    data:
+      objective: KILL_MOBS
+      goal: 1000
+      time-duration: 600
+

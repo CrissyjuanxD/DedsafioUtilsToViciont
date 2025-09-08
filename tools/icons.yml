@@ -1,0 +1,16 @@
+enabled: true
+icons:
+  little-roulette: '\uEA9C'
+  little-roulette-off: '\uEA9D'
+  little-roulette-yellow: '\uEA9E'
+  little-roulette-red: '\uEA9F'
+  little-roulette-purple: '\uEAA0'
+  little-roulette-pink: '\uEAA1'
+  little-roulette-orange: '\uEAA2'
+  little-roulette-green: '\uEAA3'
+  little-roulette-cyan: '\uEAA4'
+  little-roulette-blue: '\uEAA5'
+  transition-icon: '\uEAA6'
+  menu-revive-icon: '\uEAA7'
+  menu-revive-space-icon: '\uEAA8'
+  menu-title-space-icon: '\uEAA9'

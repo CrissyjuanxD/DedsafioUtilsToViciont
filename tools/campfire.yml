@@ -1,0 +1,19 @@
+enabled: true
+config:
+  max-ticks: 0
+  fade-in: 0
+  stay: 5
+  fade-out: 0
+  message-type: "TITLE"
+campfires:
+  default:
+    name: '&eFogata'
+    item-template: 'fogata'
+    items-allowed:
+      - 'cuchara_de_resurreccion'
+      - 'tenedor_de_resurreccion'
+    action: OPEN_MENU
+    data:
+      corn1: ""
+      corn2: ""
+      spawn: ""

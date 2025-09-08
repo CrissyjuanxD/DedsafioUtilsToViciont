@@ -1,0 +1,68 @@
+enabled: true
+config:
+  max-ticks: 0
+  fade-in: 0
+  stay: 5
+  fade-out: 0
+  message-type: "TITLE"
+events:
+  reviil_zombificacion:
+    name: '&eEvento Reviil Zombificacion'
+    messages:
+      - ':little-roulette-red:&c&l► ᴍᴏᴍᴇɴᴛᴏ ʀᴇᴠɪɪʟ:'
+      - ''
+      - '#f48181Reviil ha aplicado zombificación a todos los jugadores. Deben'
+      - '#f48181 curarse con una poción de debilidad y comerse una manzana'
+      - '#f48181 dorada en menos de 10 segundos o morirán.'
+    start-frame: '\uE973'
+    end-frame: '\uEA39'
+    sound: 'dtools3:tools.events.reviil'
+  reviil_2k_entidades:
+    name: '&eReviil Event'
+    messages:
+      - ':little-roulette-red:&c&l► ᴍᴏᴍᴇɴᴛᴏ ʀᴇᴠɪɪʟ:'
+      - ''
+      - '#f48181Entre todos los Jugadores deben matar 2000 entidades en'
+      - '#f48181 menos de 10 minutos. Si no lo logran, las personas en la tabla'
+      - '#f48181 serán sometidas a un parkour de la muerte.'
+    start-frame: '\uE973'
+    end-frame: '\uEA39'
+    sound: 'dtools3:tools.events.reviil'
+  reviil_1k_entidades:
+    name: '&eReviil Event'
+    messages:
+      - ':little-roulette-red:&c&l► ᴍᴏᴍᴇɴᴛᴏ ʀᴇᴠɪɪʟ:'
+      - ''
+      - '#f48181Entre todos los Jugadores deben matar 1000 entidades en'
+      - '#f48181 menos de 10 minutos. Si no lo logran, 10 personas aleatorias'
+      - '#f48181 serán sometidas a un parkour de la muerte.'
+    start-frame: '\uE973'
+    end-frame: '\uEA39'
+    sound: 'dtools3:tools.events.reviil'
+    tool-executor:
+      id: objectives
+      option: kill_1k_mobs
+  reviil_sin_texto:
+    name: '&eReviil Event'
+    messages:
+      - ':little-roulette-red:&c&l► ᴍᴏᴍᴇɴᴛᴏ ʀᴇᴠɪɪʟ:'
+      - ''
+    start-frame: '\uE973'
+    end-frame: '\uEA39'
+    sound: 'dtools3:tools.events.reviil'
+  nutria_especial:
+    name: '&eNutria Event'
+    messages:
+      - ':little-roulette-pink:&d&l► ᴍᴏᴍᴇɴᴛᴏ ɴᴜᴛʀɪᴀ:'
+      - ''
+      - '#f481e4Las Nutrias acaban de organizar un Momento Nutria muy'
+      - '#f481e4 especial, guarden sus puntos de aparición, serán'
+      - '#f481e4 teletransportados en 3 minutos.'
+  nutria_sin_texto:
+    name: '&eNutria Event'
+    messages:
+      - ':little-roulette-pink:&d&l► ᴍᴏᴍᴇɴᴛᴏ ɴᴜᴛʀɪᴀ:'
+      - ''
+    start-frame: '\uEA3A'
+    end-frame: '\uEA9B'
+    sound: 'dtools3:tools.events.nutria'
